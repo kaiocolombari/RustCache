@@ -30,7 +30,7 @@ Não são necessárias dependências externas.
 ## Arquitetura do Projeto
 
 ```text
-concurrent-cache/
+cacheRust/
 ├── src/
 │   ├── main.rs
 │   ├── cache.rs
