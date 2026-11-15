@@ -1,33 +1,33 @@
-# Concurrent Cache Engine
+# Mecanismo de Cache Concorrente
 
-A generic, thread-safe cache engine developed in Rust, designed to explore memory management, data sharing and concurrent processing.
+Um mecanismo de cache genérico e seguro para uso em ambientes multithread (thread-safe), desenvolvido em Rust, projetado para explorar o gerenciamento de memória, o compartilhamento de dados e o processamento concorrente.
 
-The project aims to implement a cache capable of handling simultaneous requests from multiple threads, reusing previously computed results and preventing redundant operations.
+O projeto visa implementar um cache capaz de lidar com solicitações simultâneas provenientes de múltiplas threads, reutilizando resultados calculados anteriormente e evitando operações redundantes.
 
-## Features
+## Funcionalidades
 
-- Generic key-value storage.
-- Configurable maximum capacity.
-- FIFO (First In, First Out) eviction strategy.
-- Duplicate key prevention.
-- Reference-based value retrieval.
-- Element insertion and removal.
-- Cache clearing and size inspection.
-- Thread-safe shared access.
-- Concurrent request processing.
-- Duplicate computation prevention.
+- Armazenamento genérico de chave-valor.
+- Capacidade máxima configurável.
+- Estratégia de remoção (evicção) FIFO (*First In, First Out* — primeiro a entrar, primeiro a sair).
+- Prevenção contra chaves duplicadas.
+- Recuperação de valores baseada em referências.
+- Inserção e remoção de elementos.
+- Limpeza do cache e verificação de tamanho.
+- Acesso compartilhado seguro para threads (*thread-safe*).
+- Processamento concorrente de solicitações.
+- Prevenção contra cálculos redundantes.
 
-## Technologies
+## Tecnologias
 
-- **Rust** — Core language.
-- **Standard Library (`std`)** — Core functionality.
-- **Arc** — Shared ownership across threads.
-- **Mutex / RwLock** — Thread synchronization.
-- **HashMap / Vec** — Data storage structures.
+- **Rust** — Linguagem principal.
+- **Biblioteca Padrão (`std`)** — Funcionalidades fundamentais.
+- **Arc** — Propriedade compartilhada entre threads.
+- **Mutex / RwLock** — Sincronização entre threads.
+- **HashMap / Vec** — Estruturas para armazenamento de dados.
 
-No external dependencies are required.
+Não são necessárias dependências externas.
 
-## Project Architecture
+## Arquitetura do Projeto
 
 ```text
 concurrent-cache/
@@ -40,39 +40,38 @@ concurrent-cache/
 └── Cargo.toml
 ```
 
-## Core Concepts
+## Conceitos Principais
 
-This project explores several Rust concepts through practical implementation:
+Este projeto explora diversos conceitos da linguagem Rust por meio de uma implementação prática:
 
-- **Ownership & Borrowing:** Managing data ownership and references without unnecessary copies.
-- **Generics & Traits:** Building reusable data structures with type constraints.
-- **Memory Safety:** Understanding references, lifetimes and safe memory access.
-- **Concurrency:** Sharing data across threads while preventing race conditions.
-- **Synchronization:** Coordinating simultaneous read and write operations.
-- **Thread Safety:** Exploring `Send`, `Sync`, `Arc`, `Mutex` and `RwLock`.
-- **Performance:** Evaluating caching strategies and reducing redundant computations.
+- **Propriedade e Empréstimo (*Ownership & Borrowing*):** Gerenciamento da propriedade de dados e referências, evitando cópias desnecessárias.
+- **Genéricos e *Traits*:** Construção de estruturas de dados reutilizáveis ​​com restrições de tipo.
+- **Segurança de Memória:** Compreensão de referências, tempos de vida (*lifetimes*) e acesso seguro à memória.
+- **Concorrência:** Compartilhamento de dados entre threads, prevenindo condições de corrida (*race conditions*).
+- **Sincronização:** Coordenação de operações simultâneas de leitura e escrita.
+- **Segurança em *Threads* (*Thread Safety*):** Exploração de `Send`, `Sync`, `Arc`, `Mutex` e `RwLock`.
+- **Desempenho:** Avaliação de estratégias de cache e redução de cálculos redundantes.
 
-## Expected Behavior
+## Comportamento Esperado
 
-The cache will be shared across multiple worker threads.
+O cache será compartilhado entre múltiplas threads de processamento (*worker threads*).
 
-When multiple threads request the same resource, the system should:
+Quando várias threads solicitam o mesmo recurso, o sistema deve:
 
-1. Check whether the requested value already exists in the cache.
-2. Return the cached value when available.
-3. Execute the expensive operation only once when the value is missing.
-4. Store the result and make it available to other threads.
+1. Verificar se o valor solicitado já existe no cache.
+2. Retornar o valor armazenado no cache, caso esteja disponível. 3. Execute a operação de alto custo apenas uma vez, quando o valor estiver ausente.
+4. Armazene o resultado e torne-o disponível para outras threads.
 
-This behavior aims to minimize redundant processing while maintaining data consistency.
+Esse comportamento visa minimizar o processamento redundante, mantendo a consistência dos dados.
 
-## Learning Goals
+## Objetivos de Aprendizado
 
-The main goal is to understand how Rust handles shared ownership, synchronization and memory safety in concurrent applications.
+O objetivo principal é compreender como a linguagem Rust lida com propriedade compartilhada, sincronização e segurança de memória em aplicações concorrentes.
 
-The project also explores practical cache design decisions, synchronization strategies and performance trade-offs in multithreaded systems.
+O projeto também explora decisões práticas de design de cache, estratégias de sincronização e compromissos de desempenho em sistemas multithread.
 
 ---
 
-**Status:** In development
+**Status:** Em desenvolvimento
 
-**Language:** Rust
+**Linguagem:** Rust
