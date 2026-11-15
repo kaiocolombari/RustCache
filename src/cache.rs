@@ -1,17 +1,22 @@
+use std::sync::{Arc, RwLock};
+
+// Apelido genérico para facilitar o uso nas threads
+pub type SharedCache<Key, Value> = Arc<RwLock<Cache<Key, Value>>>;
+
 struct Cache<Key, Value> {
     max_size: usize,
     dados: Vec<(Key, Value)>,
 }
 
 impl<Key: PartialEq, Value> Cache<Key, Value> {
-    fn new(max_size: usize) -> Self {
+    pub fn new(max_size: usize) -> Self {
         Self {
             max_size,
             dados: Vec::with_capacity(max_size),
         }
     }
 
-    fn insert(&mut self, key: Key, value: Value) -> Result<(), &'static str> {
+    pub fn insert(&mut self, key: Key, value: Value) -> Result<(), &'static str> {
         if self.max_size == 0 {
             return Err("Impossivel inserir em um cache de tamanho 0");
         }
@@ -28,15 +33,15 @@ impl<Key: PartialEq, Value> Cache<Key, Value> {
         Ok(())
     }
 
-    fn get(&self, key: &Key) -> Option<&Value> {
+    pub fn get(&self, key: &Key) -> Option<&Value> {
         self.dados.iter().find(|(k, _)| k == key).map(|(_, v)| v)
     }
 
-    fn clear(&mut self) {
+    pub fn clear(&mut self) {
         self.dados.clear();
     }
 
-    fn remove(&mut self, key: &Key) -> bool {
+    pub fn remove(&mut self, key: &Key) -> bool {
         if let Some(index) = self.dados.iter().position(|(k, _)| k == key) {
             self.dados.remove(index);
             true
@@ -45,11 +50,11 @@ impl<Key: PartialEq, Value> Cache<Key, Value> {
         }
     }
 
-    fn is_empty(&self) -> bool{
+    pub fn is_empty(&self) -> bool{
         self.dados.is_empty()
     }
 
-    fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.dados.len()
     }
 }
